@@ -14,7 +14,7 @@ from typing import List
 
 class ReceiptParseDriver:
 
-    def __init__(self, secrets: dict, load_database_on_init: bool =True):
+    def __init__(self, secrets: dict, load_database_on_init: bool = True):
 
         self.gdrive_service = GoogleDriveService().build()
         self.gdrive_loader = GoogleDriveLoader(self.gdrive_service)
@@ -62,7 +62,9 @@ class ReceiptParseDriver:
         files_to_parse = self.find_new_files()
 
         if not files_to_parse:
-            logging.info("No new files to parse! Database already contains all the files in the google drive")
+            logging.info(
+                "No new files to parse! Database already contains all the files in the google drive"
+            )
             return
 
         if model == "text":

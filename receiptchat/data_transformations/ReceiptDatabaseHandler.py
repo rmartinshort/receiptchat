@@ -7,10 +7,13 @@ import os
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
+
 class ReceiptDataBaseHandler:
 
-    DATABASE_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "datasets", "receipt_database.csv")
-    #DATABASE_PATH = "receipt_database.csv"
+    DATABASE_PATH = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "datasets", "receipt_database.csv"
+    )
+    # DATABASE_PATH = "receipt_database.csv"
 
     def __init__(self, load_database_on_init: bool = True) -> None:
 

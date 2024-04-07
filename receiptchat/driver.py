@@ -3,6 +3,7 @@ import os
 from receiptchat.ReceiptParseDriver import ReceiptParseDriver
 from receiptchat.ReceiptParseExamplesGenerator import ReceiptParseExamplesGenerator
 
+
 def load_secrets(env_path=".env"):
     # both calls are needed here
     load_dotenv()
@@ -10,13 +11,15 @@ def load_secrets(env_path=".env"):
 
     return {
         "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
-        }
+    }
+
 
 def main():
 
     secrets = load_secrets()
     parser = ReceiptParseDriver(secrets, load_database_on_init=True)
-    parser.update_database(model="text",write_to_db=True)
+    parser.update_database(model="text", write_to_db=True)
+
 
 def main_generate_examples(n_examples=10):
 

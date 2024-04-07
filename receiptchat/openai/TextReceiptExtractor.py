@@ -10,7 +10,11 @@ from receiptchat.data_transformations.FileBytesToImage import (
 
 class TextReceiptExtractor:
 
-    EXAMPLES_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "datasets", "example_extractions.json")
+    EXAMPLES_PATH = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        "datasets",
+        "example_extractions.json",
+    )
 
     def __init__(
         self,
@@ -30,7 +34,8 @@ class TextReceiptExtractor:
             loaded_examples = json.load(f)
 
         loaded_examples = [
-            {"input": x["file_details"]["extracted_text"], "output": x} for x in loaded_examples
+            {"input": x["file_details"]["extracted_text"], "output": x}
+            for x in loaded_examples
         ]
 
         return loaded_examples

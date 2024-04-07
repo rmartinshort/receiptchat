@@ -7,9 +7,13 @@ from typing import List
 import logging
 
 logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
+
+
 class ReceiptParseExamplesGenerator:
 
-    EXAMPLES_PATH = os.path.join(os.path.dirname(__file__), "datasets", "example_extractions.json")
+    EXAMPLES_PATH = os.path.join(
+        os.path.dirname(__file__), "datasets", "example_extractions.json"
+    )
 
     def __init__(self, secrets: dict):
 
@@ -25,7 +29,9 @@ class ReceiptParseExamplesGenerator:
                 loaded_examples = json.load(f)
 
             self.loaded_examples = loaded_examples
-            self.loaded_example_ids = set([x["file_details"]["file_id"] for x in self.loaded_examples])
+            self.loaded_example_ids = set(
+                [x["file_details"]["file_id"] for x in self.loaded_examples]
+            )
         else:
             self.loaded_examples = []
             self.loaded_example_ids = set([])
@@ -33,7 +39,7 @@ class ReceiptParseExamplesGenerator:
     def find_new_files(self):
 
         files = self.gdrive_loader.search_for_files()
-        new_files = [x for x in files if x['id'] not in self.loaded_example_ids]
+        new_files = [x for x in files if x["id"] not in self.loaded_example_ids]
         return new_files
 
     def vision_parse_new_files(self, files: List) -> List:
@@ -54,7 +60,9 @@ class ReceiptParseExamplesGenerator:
 
         # choose just the first n new receipts as examples
         files_to_parse = self.find_new_files()[:n_update]
-        logging.info("Selected the following files as examples: {}".format(files_to_parse))
+        logging.info(
+            "Selected the following files as examples: {}".format(files_to_parse)
+        )
 
         parsed_data = self.vision_parse_new_files(files_to_parse)
         updated_examples = self.loaded_examples + parsed_data
