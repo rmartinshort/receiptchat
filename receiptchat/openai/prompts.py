@@ -16,8 +16,10 @@ class VisionReceiptExtractionPrompt:
        - The total cost after tax
 
        Do not guess. If some information is missing just return "N/A" in the relevant field.
-
-       Please follow the formatting instructions exactly and do not return any additional comments or explanation
+       If you determine that the image is not of a receipt, just set all the fields in the formatting instructions to "N/A". 
+       
+       You must obey the output format under all circumstances. Please follow the formatting instructions exactly.
+       Do not return any additional comments or explanation. 
        """
 
 

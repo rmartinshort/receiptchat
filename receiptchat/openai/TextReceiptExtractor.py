@@ -30,7 +30,7 @@ class TextReceiptExtractor:
             loaded_examples = json.load(f)
 
         loaded_examples = [
-            {"input": x["extracted_text"], "output": x} for x in loaded_examples
+            {"input": x["file_details"]["extracted_text"], "output": x} for x in loaded_examples
         ]
 
         return loaded_examples

@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 
 from receiptchat.gdrive.GoogleDriveService import GoogleDriveService
@@ -58,6 +60,10 @@ class ReceiptParseDriver:
     def update_database(self, model="text", write_to_db=False):
 
         files_to_parse = self.find_new_files()
+
+        if not files_to_parse:
+            logging.info("No new files to parse! Database already contains all the files in the google drive")
+            return
 
         if model == "text":
             parsed_data = self.text_parse_new_files(files_to_parse)
