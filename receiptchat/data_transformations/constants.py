@@ -1,0 +1,1 @@
+DEFAULT_DPI = 50
