@@ -1,16 +1,18 @@
 import io
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
+import googleapiclient.discovery
+from typing import List
 
 
 class GoogleDriveLoader:
     VALID_EXTENSIONS = [".pdf", ".png", ".jpeg"]
 
-    def __init__(self, service):
+    def __init__(self, service: googleapiclient.discovery.Resource):
 
         self.service = service
 
-    def search_for_files(self):
+    def search_for_files(self) -> List:
         """
         See https://developers.google.com/drive/api/guides/search-files#python
         """
@@ -64,21 +66,13 @@ class GoogleDriveLoader:
 
         return files
 
-    def download_file(self, real_file_id):
-        """Downloads a file
-        Args:
-            real_file_id: ID of the file to download
-        Returns : IO object with location.
-
-        Load pre-authorized user credentials from the environment.
-        TODO(developer) - See https://developers.google.com/identity
-        for guides on implementing OAuth2 for the application.
+    def download_file(self, real_file_id: str) -> bytes:
+        """
+        Downloads a file
         """
 
         try:
             file_id = real_file_id
-
-            # pylint: disable=maybe-no-member
             request = self.service.files().get_media(fileId=file_id)
             file = io.BytesIO()
             downloader = MediaIoBaseDownload(file, request)

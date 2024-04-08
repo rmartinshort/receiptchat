@@ -3,7 +3,7 @@ from typing import List
 
 
 class ReceiptItem(BaseModel):
-    """Information about a single item on a reciept"""
+    """Information about a single item on a receipt"""
 
     item_name: str = Field("The name of the purchased item")
     item_cost: str = Field("The cost of the item")

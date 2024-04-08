@@ -1,0 +1,11 @@
+black==24.3.0
+google-api-core==2.18.0
+google-api-python-client==2.64.0
+google-auth==2.29.0
+google-auth-httplib2==0.2.0
+googleapis-common-protos==1.63.0
+langchain==0.1.14
+langchain-openai==0.1.1
+pdf2image==1.17.0
+PyPDF2==3.0.1
+pytesseract==0.3.10

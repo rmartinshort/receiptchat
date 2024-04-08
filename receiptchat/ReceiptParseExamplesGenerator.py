@@ -56,7 +56,7 @@ class ReceiptParseExamplesGenerator:
 
         return collected_data
 
-    def update_examples(self, n_update=10):
+    def update_examples(self, n_update: int = 10) -> None:
 
         # choose just the first n new receipts as examples
         files_to_parse = self.find_new_files()[:n_update]
