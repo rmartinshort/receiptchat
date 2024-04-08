@@ -6,6 +6,9 @@ from receiptchat.data_transformations.FileBytesToImage import (
     JpegBytesToImage,
     PDFBytesToImage,
 )
+import logging
+
+logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
 
 class TextReceiptExtractor:
@@ -32,7 +35,9 @@ class TextReceiptExtractor:
     def _load_examples(self):
 
         if not os.path.exists(self.EXAMPLES_PATH):
-            raise ValueError("The examples file {} must exist in order to run TextReceiptExtractor")
+            logging.warning("The examples file {} must exist in order to run TextReceiptExtractor".format(self.EXAMPLES_PATH))
+            return []
+
         with open(self.EXAMPLES_PATH) as f:
             loaded_examples = json.load(f)
 
