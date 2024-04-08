@@ -30,6 +30,9 @@ class TextReceiptExtractor:
         self.gdrive_service = gdrive_service
 
     def _load_examples(self):
+
+        if not os.path.exists(self.EXAMPLES_PATH):
+            raise ValueError("The examples file {} must exist in order to run TextReceiptExtractor")
         with open(self.EXAMPLES_PATH) as f:
             loaded_examples = json.load(f)
 
