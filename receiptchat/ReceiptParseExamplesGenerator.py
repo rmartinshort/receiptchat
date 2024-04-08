@@ -17,6 +17,12 @@ class ReceiptParseExamplesGenerator:
 
     def __init__(self, secrets: dict):
 
+        if not os.path.isdir(os.path.dirname(self.EXAMPLES_PATH)):
+            logging.info(
+                "Making database path {}".format(os.path.dirname(self.EXAMPLES_PATH))
+            )
+            os.mkdir(self.EXAMPLES_PATH)
+
         self.gdrive_service = GoogleDriveService().build()
         self.gdrive_loader = GoogleDriveLoader(self.gdrive_service)
         self.vision_extractor = VisionRecieptExtractor(
