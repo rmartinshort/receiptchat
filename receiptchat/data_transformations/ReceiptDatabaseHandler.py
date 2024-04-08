@@ -17,6 +17,12 @@ class ReceiptDataBaseHandler:
 
     def __init__(self, load_database_on_init: bool = True) -> None:
 
+        if not os.path.isdir(os.path.dirname(self.DATABASE_PATH)):
+            logging.info(
+                "Making database path {}".format(os.path.dirname(self.DATABASE_PATH))
+            )
+            os.mkdir(self.DATABASE_PATH)
+
         self.load_database_on_init = load_database_on_init
         if load_database_on_init:
             try:

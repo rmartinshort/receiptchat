@@ -14,7 +14,11 @@ class GoogleDriveService:
         base_path = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         credential_path = os.path.join(base_path, "gdrive_credential.json")
         if not os.path.exists(credential_path):
-            logging.error("Google Drive connection credentials are not found! They need to be stored here {}".format(credential_path))
+            logging.error(
+                "Google Drive connection credentials are not found! They need to be stored here {}".format(
+                    credential_path
+                )
+            )
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = credential_path
 
     def build(self):

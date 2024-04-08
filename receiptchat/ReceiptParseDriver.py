@@ -18,14 +18,14 @@ class ReceiptParseDriver:
 
         self.gdrive_service = GoogleDriveService().build()
         self.gdrive_loader = GoogleDriveLoader(self.gdrive_service)
+        self.database_handler = ReceiptDataBaseHandler(
+            load_database_on_init=load_database_on_init
+        )
         self.vision_extractor = VisionRecieptExtractor(
             self.gdrive_loader, api_key=secrets["OPENAI_API_KEY"]
         )
         self.text_extractor = TextReceiptExtractor(
             self.gdrive_loader, api_key=secrets["OPENAI_API_KEY"]
-        )
-        self.database_handler = ReceiptDataBaseHandler(
-            load_database_on_init=load_database_on_init
         )
 
     def find_new_files(self):

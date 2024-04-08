@@ -35,7 +35,11 @@ class TextReceiptExtractor:
     def _load_examples(self):
 
         if not os.path.exists(self.EXAMPLES_PATH):
-            logging.warning("The examples file {} must exist in order to run TextReceiptExtractor".format(self.EXAMPLES_PATH))
+            logging.warning(
+                "The examples file {} must exist in order to run TextReceiptExtractor".format(
+                    self.EXAMPLES_PATH
+                )
+            )
             return []
 
         with open(self.EXAMPLES_PATH) as f:
