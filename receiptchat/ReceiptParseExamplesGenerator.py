@@ -21,7 +21,7 @@ class ReceiptParseExamplesGenerator:
             logging.info(
                 "Making database path {}".format(os.path.dirname(self.EXAMPLES_PATH))
             )
-            os.mkdir(self.EXAMPLES_PATH)
+            os.mkdir(os.path.dirname(self.EXAMPLES_PATH))
 
         self.gdrive_service = GoogleDriveService().build()
         self.gdrive_loader = GoogleDriveLoader(self.gdrive_service)
