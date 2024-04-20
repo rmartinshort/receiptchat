@@ -68,14 +68,14 @@ class TextReceiptExtractor:
 
         return {"extracted_text": extracted_text}
 
-    def call_llm(self, prepared_data: dict) -> dict:
+    def call_llm(self, prepared_data: dict) -> tuple:
         res, cb = self.extractor.run_and_count_tokens(
             {"input": prepared_data["extracted_text"]}
         )
 
         return res, cb
 
-    def parse(self, gdrive_file_details: dict) -> dict:
+    def parse(self, gdrive_file_details: dict) -> tuple:
         file_data = self.download_file_from_gdrive(gdrive_file_details)
         image_data = self.prepare_data_for_llm(file_data)
         parsed_result, cb = self.call_llm(image_data)

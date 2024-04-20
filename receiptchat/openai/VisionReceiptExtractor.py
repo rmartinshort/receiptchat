@@ -47,17 +47,17 @@ class VisionRecieptExtractor:
 
         return {"image": loaded_data, "extracted_text": extracted_text}
 
-    def call_llm(self, prepared_data: dict) -> dict:
+    def call_llm(self, prepared_data: dict) -> tuple:
 
         with NamedTemporaryFile(suffix=".jpeg") as temp_file:
             prepared_data["image"].save(temp_file.name)
             res, cb = self.extractor.run_and_count_tokens(
                 {"image_path": temp_file.name}
-            )
+
 
         return res, cb
 
-    def parse(self, gdrive_file_details: dict, extract_raw_text: bool = True) -> dict:
+    def parse(self, gdrive_file_details: dict, extract_raw_text: bool = True) -> tuple:
 
         file_data = self.download_file_from_gdrive(gdrive_file_details)
         image_data = self.prepare_data_for_llm(file_data, extract_raw_text)
