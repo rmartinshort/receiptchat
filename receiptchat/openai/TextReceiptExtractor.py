@@ -16,7 +16,7 @@ class TextReceiptExtractor:
     EXAMPLES_PATH = os.path.join(
         os.path.dirname(os.path.dirname(__file__)),
         "datasets",
-        "example_extractions.json",
+        "example_receipt_extractions.json",
     )
 
     def __init__(

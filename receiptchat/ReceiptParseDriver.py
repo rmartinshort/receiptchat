@@ -1,7 +1,7 @@
 import logging
 
 import pandas as pd
-
+import boto3
 from receiptchat.gdrive.GoogleDriveService import GoogleDriveService
 from receiptchat.gdrive.GoogleDriveLoader import GoogleDriveLoader
 from receiptchat.openai.TextReceiptExtractor import TextReceiptExtractor
@@ -9,12 +9,19 @@ from receiptchat.openai.VisionReceiptExtractor import VisionRecieptExtractor
 from receiptchat.data_transformations.ReceiptDatabaseHandler import (
     ReceiptDataBaseHandler,
 )
+from receiptchat.aws.constants import AWS_REGION
+from receiptchat.aws.TextractExtractor import TextractExtractor
 from typing import List
 
 
 class ReceiptParseDriver:
 
-    def __init__(self, secrets: dict, load_database_on_init: bool = True):
+    def __init__(
+        self,
+        secrets: dict,
+        load_database_on_init: bool = True,
+        include_textract: bool = False,
+    ):
 
         self.gdrive_service = GoogleDriveService().build()
         self.gdrive_loader = GoogleDriveLoader(self.gdrive_service)
@@ -28,6 +35,16 @@ class ReceiptParseDriver:
             self.gdrive_loader, api_key=secrets["OPENAI_API_KEY"]
         )
 
+        if include_textract:
+            self.include_textract = True
+            self.aws_session = boto3.Session()
+            self.aws_client = self.aws_session.client(
+                "textract", region_name=AWS_REGION
+            )
+            self.textract_extractor = TextractExtractor(
+                self.gdrive_loader, self.aws_client
+            )
+
     def find_new_files(self):
 
         files = self.gdrive_loader.search_for_files()
@@ -39,6 +56,17 @@ class ReceiptParseDriver:
         collected_data = []
         for file in files:
             result, cb = self.text_extractor.parse(file)
+            collected_data.append(result)
+
+        return collected_data
+
+    def textract_parse_new_files(self, files: List) -> List:
+
+        assert self.include_textract
+
+        collected_data = []
+        for file in files:
+            result, cb = self.textract_extractor.parse(file, extract_image=False)
             collected_data.append(result)
 
         return collected_data
