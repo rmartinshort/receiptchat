@@ -95,8 +95,11 @@ class ReceiptDataBaseHandler:
     def update_database(self, collected_df: pd.DataFrame) -> pd.DataFrame:
 
         if isinstance(self.database, pd.DataFrame):
-            return pd.concat([self.database, collected_df])
+            updated_db = pd.concat([self.database, collected_df])
+            self.database = updated_db
+            return updated_db
         else:
+            self.database = collected_df
             return collected_df
 
     def write_to_database(self, collected_df: pd.DataFrame) -> None:
