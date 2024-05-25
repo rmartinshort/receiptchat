@@ -15,7 +15,7 @@ class VisionRecieptExtractor:
         gdrive_service,
         api_key: str,
         temperature: int = 0,
-        model: str = "gpt-4-vision-preview",
+        model: str = "gpt-4o",
     ) -> None:
 
         self.llm = ChatOpenAI(api_key=api_key, temperature=temperature, model=model)
