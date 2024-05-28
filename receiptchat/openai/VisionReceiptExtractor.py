@@ -53,6 +53,7 @@ class VisionRecieptExtractor:
             prepared_data["image"].save(temp_file.name)
             res, cb = self.extractor.run_and_count_tokens(
                 {"image_path": temp_file.name}
+            )
 
 
         return res, cb
