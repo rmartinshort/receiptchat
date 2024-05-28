@@ -8,7 +8,7 @@ from receiptchat.data_transformations.FileBytesToImage import (
 from tempfile import NamedTemporaryFile
 
 
-class VisionRecieptExtractor:
+class VisionReceiptExtractor:
 
     def __init__(
         self,

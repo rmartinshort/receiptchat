@@ -5,7 +5,7 @@ import pandas as pd
 from receiptchat.gdrive.GoogleDriveService import GoogleDriveService
 from receiptchat.gdrive.GoogleDriveLoader import GoogleDriveLoader
 from receiptchat.openai.TextReceiptExtractor import TextReceiptExtractor
-from receiptchat.openai.VisionReceiptExtractor import VisionRecieptExtractor
+from receiptchat.openai.VisionReceiptExtractor import VisionReceiptExtractor
 from receiptchat.data_transformations.ReceiptDatabaseHandler import (
     ReceiptDataBaseHandler,
 )
@@ -21,7 +21,7 @@ class ReceiptParseDriver:
         self.database_handler = ReceiptDataBaseHandler(
             load_database_on_init=load_database_on_init
         )
-        self.vision_extractor = VisionRecieptExtractor(
+        self.vision_extractor = VisionReceiptExtractor(
             self.gdrive_loader, api_key=secrets["OPENAI_API_KEY"]
         )
         self.text_extractor = TextReceiptExtractor(
